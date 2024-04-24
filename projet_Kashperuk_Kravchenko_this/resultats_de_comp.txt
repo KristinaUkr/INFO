@@ -1,0 +1,17 @@
+List: 0.000068 Hachage: 0.000021 Arbre: 0.000044
+List: 0.000070 Hachage: 0.000018 Arbre: 0.000033
+List: 0.000061 Hachage: 0.000018 Arbre: 0.000036
+List: 0.000029 Hachage: 0.000009 Arbre: 0.000016
+List: 0.003359 Hachage: 0.000028 Arbre: 0.000048
+List: 0.000098 Hachage: 0.000031 Arbre: 0.000055
+List: 0.000076 Hachage: 0.000029 Arbre: 0.000049
+List: 0.006016 Hachage: 0.000259 Arbre: 0.006714
+List: 0.000544 Hachage: 0.000279 Arbre: 0.000838
+List: 0.002158 Hachage: 0.000404 Arbre: 0.001255
+List: 0.001330 Hachage: 0.000512 Arbre: 0.001708
+List: 0.001886 Hachage: 0.000683 Arbre: 0.002120
+List: 0.002586 Hachage: 0.000839 Arbre: 0.002742
+List: 0.003374 Hachage: 0.001081 Arbre: 0.003118
+List: 0.004021 Hachage: 0.001175 Arbre: 0.003525
+List: 0.005029 Hachage: 0.001450 Arbre: 0.004172
+List: 0.005875 Hachage: 0.001513 Arbre: 0.004790

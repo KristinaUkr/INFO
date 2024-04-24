@@ -1,0 +1,42 @@
+CFLAGS = -g -Wall -Wextra -pedantic -Wno-unused-parameter -ggdb
+CC = gcc
+LDFLAGS = -lm
+
+PROGRAMS = mainR comp
+
+.PHONY:	all clean
+
+all: $(PROGRAMS)
+
+#mainCH: SVGwriter.o Chaine.o
+#	$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+
+mainR: SVGwriter.o Chaine.o Reseau.o Hachage.o ArbreQuat.o ReconstitueReseau.o
+	$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+
+comp: SVGwriter.o Chaine.o Reseau.o Hachage.o ArbreQuat.o MainComp.o
+	$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+	
+SVGwriter.o: SVGwriter.c
+	gcc $(CFLAGS) -c SVGwriter.c
+
+Chaine.o: Chaine.c
+	gcc $(CFLAGS) -c Chaine.c
+
+Reseau.o: Reseau.c
+	gcc $(CFLAGS) -c Reseau.c
+
+Hachage.o: Hachage.c
+	gcc $(CFLAGS) -c Hachage.c
+
+ArbreQuat.o: ArbreQuat.c
+	gcc $(CFLAGS) -c ArbreQuat.c
+
+ReconstitueReseau.o: ReconstitueReseau.c
+	gcc $(CFLAGS) -c ReconstitueReseau.c
+
+MainComp.o: MainComp.c
+	gcc $(CFLAGS) -c MainComp.c
+
+clean:
+	rm -f *.o *~ $(PROGRAMS)
