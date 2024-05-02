@@ -1,5 +1,5 @@
 #include "file.h"
-
+/*Нам дали этот файл*/
 IntFile *creer_file()
 {
     IntFile *file = (IntFile *)malloc(sizeof(IntFile));

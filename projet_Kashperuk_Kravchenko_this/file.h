@@ -2,6 +2,7 @@
 #define __FILE_H__
 #include <stdlib.h>
 #include <stdio.h>
+/*Нам дали этот файл*/
 
 typedef struct cell_file
 {
