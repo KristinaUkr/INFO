@@ -10,63 +10,70 @@
 int main(){
     
     Chaines *cha;
+    Reseau *res;
 
-    for(int nbCh = 1; nbCh<11; nbCh++){
+    for(int i = 1; i<11; i++){
 
-        cha = generationAleatoire(nbCh*5, 10, 50, 50);
+        int nbch = i*5;
+
+        cha = generationAleatoire(nbch, 100, 5000, 5000); //generer les chaines
 
         clock_t debut, fin;
 
         /////////Liste-chainee/////////
 
-        double t_ch = 0;
+        double t_ch = 0; //temps pour les listes chainées
 
-        debut = clock(); //ticks en cours d'execution
-        printf("avant\n");
-        reconstitueReseauListe(cha);
-        reconstitueReseauListe(cha);
-        printf("apres\n");
+        debut = clock();
+        
+        res = reconstitueReseauListe(cha);
 
         fin = clock();
 
         t_ch = ((double) (fin - debut)) / CLOCKS_PER_SEC;
 
+        libererReseau(res);
+
         /////////Arbre/////////
         
-        double t_ar = 0;
+        double t_ar = 0; //temps pour l'arbre
 
         debut = clock();
 
-        reconstitueReseauArbre(cha);
+        res = reconstitueReseauArbre(cha);
         
         fin = clock();
 
         t_ar = ((double) (fin - debut)) / CLOCKS_PER_SEC;
 
+        libererReseau(res);
+
 
         /////////hachage/////////
         
-        double t_h = 0;
+        double t_h = 0; //temps pour les tables d'hachage
 
-        for(int n = 6; n<21; n++){
+        for(int n = 6; n<21; n++){ //on varie la taille de la table
 
             debut = clock();
 
-            reconstitueReseauHachage(cha, n);
+            res = reconstitueReseauHachage(cha, n);
             
             fin = clock();
 
             t_h += ((double) (fin - debut)) / CLOCKS_PER_SEC;
 
+            libererReseau(res);
+
         }
 
-        t_h /= 15;
+        t_h /= 15; //on calcule la moyenne
 
+        libererChaine(cha);
 
+        FILE *res = fopen("comp.txt","a"); //stocker les resultats dans comp.txt
 
-        FILE *res = fopen("resultats_de_comp.txt","a");
-
-        fprintf(res, "List: %f Hachage: %f Arbre: %f\n", t_ch, t_h, t_ar);
+        fprintf(res, "%d %f %f %f\n", nbch,t_ch, t_h, t_ar);
 
         fclose(res);
 

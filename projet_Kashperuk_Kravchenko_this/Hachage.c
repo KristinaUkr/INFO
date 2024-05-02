@@ -139,7 +139,8 @@ Reseau* reconstitueReseauHachage(Chaines *C, int M){
 
         tmp_cch = tmp_cch->suiv;
     }
-
+    
+    libererTable(H);
     return R;
 }
 

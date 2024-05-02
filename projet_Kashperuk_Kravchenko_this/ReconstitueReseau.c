@@ -54,11 +54,12 @@ int main(){
 
     }while(rep);
 
+    Chaines *cha = lectureChaines(fich);// Чтение цепей из файла 
+    fclose(fich);
+
     switch (m){// В зависимости от выбранного метода выполняем соответствующие действия
 
         case 1: ; //кейс Метод списка
-            Chaines *cha = lectureChaines(fich);// Чтение цепей из файла 
-            fclose(fich);
 
             // Реконструируем сеть на основе цепей
             Reseau *res = reconstitueReseauListe(cha);
@@ -70,14 +71,14 @@ int main(){
 
             // Создаем SVG-файл для визуализации сети
             afficheReseauSVG(res, "Test_ch_affich");
+
+            libererReseau(res);
             break;
 
         case 2: ; // кейс Метод таблицы хэширования
-            Chaines *cha_h = lectureChaines(fich);// Чтение цепей из файла
-            fclose(fich);
 
             // Реконструируем сеть на основе цепей с использованием таблицы хэширования
-            Reseau *res_h = reconstitueReseauHachage(cha_h, 10);
+            Reseau *res_h = reconstitueReseauHachage(cha, 10);
 
             // Записываем сеть в файл
             FILE *fich2_h = fopen("Test_h.res","w");
@@ -87,14 +88,13 @@ int main(){
             // Создаем SVG-файл для визуализации сети
             afficheReseauSVG(res_h, "Test_h_affich");
 
+            libererReseau(res_h);
             break;
 
         case 3: ;// Метод дерева
-            Chaines *cha_ar = lectureChaines(fich); // Чтение цепей из файла
-            fclose(fich);
-            
+
             // Реконструируем сеть на основе цепей с использованием дерева
-            Reseau *res_ar = reconstitueReseauArbre(cha_ar);
+            Reseau *res_ar = reconstitueReseauArbre(cha);
 
             // Записываем сеть в файл
             FILE *fich2_ar = fopen("Test_ar.res","w");
@@ -104,6 +104,7 @@ int main(){
             // Создаем SVG-файл для визуализации сети
             afficheReseauSVG(res_ar, "Test_ar_affich");
 
+            libererReseau(res_ar);
             break;
 
         default:
@@ -111,6 +112,6 @@ int main(){
 
     }
     
-
+    libererChaine(cha);
     return 0;
 }

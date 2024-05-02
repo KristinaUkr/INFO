@@ -283,6 +283,8 @@ Reseau* reconstitueReseauArbre(Chaines* C){
         tmp_cch = tmp_cch->suiv;
     }
 
+    //on libere la memoire
+    libererArbre(AR);
     return R;
 }
 
