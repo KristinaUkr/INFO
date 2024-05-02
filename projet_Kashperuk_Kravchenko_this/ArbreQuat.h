@@ -24,4 +24,6 @@ Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, doub
 
 Reseau* reconstitueReseauArbre(Chaines* C); /*восстанавливаем сеть по методу квадратичного дерева*/
 
+void libererArbre(ArbreQuat *a);
+
 #endif

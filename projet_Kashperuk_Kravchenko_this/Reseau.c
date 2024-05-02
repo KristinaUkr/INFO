@@ -216,3 +216,36 @@ void afficheReseauSVG(Reseau *R, char* nomInstance){
     SVGfinalize(&svg);
 }
 
+/* Освободите память, выделенную под структуру Reseau и ее элементы */
+void libererReseau(Reseau *res) {
+
+    if (res == NULL) return; // Проверьте, не является ли структура уже пустой
+        
+    CellNoeud *cn = res->noeuds;
+    while (cn != NULL) {
+        CellNoeud *tmp_cn = cn; // Garder une référence temporaire
+        cn = cn->suiv; 
+
+        CellNoeud *cn_v = tmp_cn->nd->voisins;
+        while (cn_v != NULL) {
+            CellNoeud *tmp_v = cn_v; // Сохраните временную ссылку
+            cn_v = cn_v->suiv;
+            free(tmp_v); // Освободите соседа
+        }
+
+        // Освободите сам узел
+        free(tmp_cn->nd);
+        free(tmp_cn);
+    }
+
+    CellCommodite *cc = res->commodites;
+    while (cc != NULL) {
+        CellCommodite *tmp_cc = cc; // Сохраните временную ссылку
+        cc = cc->suiv;
+        free(tmp_cc); // Освобождение комодите
+    }
+
+    // Освободите саму структуру Reseau
+    free(res);
+}
+

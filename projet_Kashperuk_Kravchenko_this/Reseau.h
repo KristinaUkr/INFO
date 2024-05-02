@@ -40,5 +40,6 @@ int nbLiaisons(Reseau *R);
 int nbCommodites(Reseau *R);
 void ecrireReseau(Reseau *R, FILE *f);
 void afficheReseauSVG(Reseau *R, char* nomInstance);
+void libererReseau(Reseau *res);
 #endif
 

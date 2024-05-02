@@ -10,6 +10,7 @@
 Chaines* lectureChaines(FILE *f){
     // Выделяем память для новой ячейки макс кол волокон, кол цепей, список цепей
     Chaines *ch = (Chaines*)malloc(sizeof(Chaines));
+    ch->chaines = NULL;
 
     /*Считываем количество цепочек и значение gamma 
     (количество оптических волокон) из файла*/
@@ -30,6 +31,8 @@ Chaines* lectureChaines(FILE *f){
 
         // Выделяем память для новой ячейки номера строки и списка точек
         CellChaine *cch = (CellChaine*)malloc(sizeof(CellChaine));
+        cch->points = NULL;
+        cch->suiv = NULL;
 
         int n;
         sscanf(input,"%d %d",&(cch->numero), &n);
@@ -202,11 +205,13 @@ Chaines* generationAleatoire(int nbChaines, int nbPointsChaine, int xmax, int ym
     Chaines *ch = (Chaines*)malloc(sizeof(Chaines)); //allocation
     ch->nbChaines = nbChaines;
     ch->gamma = 3;
+    ch->chaines = NULL; 
 
     for(int j=0; j<nbChaines; j++){ //
 
         CellChaine *cch = (CellChaine*)malloc(sizeof(CellChaine)); //allocation
         cch->suiv = NULL;
+        cch->points = NULL;
         
         for (int i = 0; i < nbPointsChaine; i++){ //lire n points
 
@@ -230,3 +235,26 @@ Chaines* generationAleatoire(int nbChaines, int nbPointsChaine, int xmax, int ym
     return ch;
 }
 
+/*Освобождаем цепь*/
+void libererChaine(Chaines *ch) {
+    
+    if (ch == NULL) return;// Проверьте, не является ли структура уже пустой
+
+    CellChaine *cch = ch->chaines;
+
+    while (cch){
+        CellChaine *tmp_ch = cch; 
+        cch = cch->suiv;
+
+        CellPoint *cp = tmp_ch->points;
+        while (cp != NULL){
+            CellPoint *tmp_cp = cp;
+            cp = cp->suiv;
+            free(tmp_cp); // Освободите точку
+        }
+
+        free(tmp_ch); // Освободите цепь
+    }
+
+    free(ch); // Освободите саму структуру Chaines
+}

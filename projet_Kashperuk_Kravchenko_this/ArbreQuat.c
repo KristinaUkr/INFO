@@ -130,14 +130,15 @@ void insererNoeudArbre(Noeud* n, ArbreQuat** a, ArbreQuat* parent){
 /*возвращает узел сети R, соответствующий точке координат (x, y) в четвертичном дереве*/
 
 Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, double x, double y){
-
+    
     // (cas arbre vide)
     if(!*a){
 
         Noeud *n = (Noeud*)malloc(sizeof(Noeud)); //создаем узел
         n->x = x;
         n->y = y;
-        n->num = R->nbNoeuds+1; 
+        n->num = R->nbNoeuds+1;
+        n->voisins = NULL;
 
         CellNoeud *cn = (CellNoeud*)malloc(sizeof(CellNoeud)); // создаем ячейку
         cn->nd = n;
@@ -161,6 +162,7 @@ Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, doub
         n->x = x;
         n->y = y;
         n->num = R->nbNoeuds+1;
+        n->voisins = NULL;
 
         CellNoeud *cn = (CellNoeud*)malloc(sizeof(CellNoeud)); // créer la cellule
         cn->nd = n;
@@ -197,6 +199,7 @@ Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, doub
 
     }
 }
+
 /*восстанавливаем сеть по методу квадратичного дерева*/
 Reseau* reconstitueReseauArbre(Chaines* C){
     //выделяем память и передаем значения
@@ -207,7 +210,7 @@ Reseau* reconstitueReseauArbre(Chaines* C){
     R->commodites = NULL;
     /*Вычисляются минимальные и максимальные значения координат xmin и тп 
     с помощью функции chaineCoordMinMax, применяемой к списку цепей C.*/
-    double xmin, ymin, xmax, ymax;
+    double xmin = 0, ymin = 0, xmax = 0, ymax = 0;
     chaineCoordMinMax(C, &xmin, &ymin, &xmax, &ymax);
 
     //Вычисление центра и размеров дерева
@@ -281,4 +284,18 @@ Reseau* reconstitueReseauArbre(Chaines* C){
     }
 
     return R;
+}
+
+void libererArbre(ArbreQuat *a) {
+
+    if (a == NULL) return;// Проверьте, не является ли дерево уже пустым
+        
+    // Рекурсивно освобождаем поддеревья
+    libererArbre(a->so);
+    libererArbre(a->se);
+    libererArbre(a->no);
+    libererArbre(a->ne);
+
+    // Освободите саму структуру ArbreQuat
+    free(a);
 }

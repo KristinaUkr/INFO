@@ -33,5 +33,6 @@ double longueurTotale(Chaines *C);
 double longueurChaine(CellChaine *c);
 int comptePointsTotal(Chaines *C);
 Chaines* generationAleatoire(int nbChaines, int nbPointsChaine, int xmax, int ymax);
+void libererChaine(Chaines *ch);
 
 #endif	

@@ -42,6 +42,7 @@ Noeud* rechercheCreeNoeudHachage(Reseau* R, TableHachage* H, double x, double y)
     nd->x = x;
     nd->y = y;
     nd->num = R->nbNoeuds+1;
+    nd->voisins = NULL;
 
     // Добавляем узел в хэш-таблицу
     CellNoeud *cn = (CellNoeud*)malloc(sizeof(CellNoeud));
@@ -141,3 +142,18 @@ Reseau* reconstitueReseauHachage(Chaines *C, int M){
 
     return R;
 }
+
+/* Освободите память, выделенную для хэш-таблицы и ее элементов */
+void libererTable(TableHachage *tab) {
+
+    if (tab == NULL) return;// Проверьте, не пуста ли таблица.
+
+    // Освободите цепной список в таблице
+    for (int i = 0; i < tab->tailleMax; i++) {
+        CellNoeud *current_noeud = tab->T[i];
+        while (current_noeud != NULL) {
+            CellNoeud *temp_noeud = current_noeud; // Сохраните временную ссылку 
+            current_noeud = current_noeud->suiv; 
+            free(temp_noeud);// Освободите таблицу
+        }
+    }
