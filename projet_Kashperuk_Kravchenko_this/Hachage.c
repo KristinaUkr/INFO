@@ -158,3 +158,4 @@ void libererTable(TableHachage *tab) {
             free(temp_noeud);// Освободите таблицу
         }
     }
+}
