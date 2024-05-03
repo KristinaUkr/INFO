@@ -12,7 +12,7 @@ int main(){
     Chaines *cha;
     Reseau *res;
 
-    for(int i = 1; i<11; i++){
+    for(int i = 6; i<11; i++){
 
         int nbch = i*500; // Количество цепей
         int nbpts = nbch*100; // Количество точек
