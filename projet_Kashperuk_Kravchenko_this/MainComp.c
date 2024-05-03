@@ -14,7 +14,8 @@ int main(){
 
     for(int i = 1; i<11; i++){
 
-        int nbch = i*5;
+        int nbch = i*500; // Количество цепей
+        int nbpts = nbch*100; // Количество точек
 
         cha = generationAleatoire(nbch, 100, 5000, 5000); // Генерация случайных цепей
 
@@ -51,29 +52,76 @@ int main(){
 
         /*     HACHAGE     */
         
-        double t_h = 0; // Время для хэш-таблиц
+        double t_h_quart = 0; //temps pour les tables d'hachage de taille nbpts/4 
 
-        for(int n = 6; n<21; n++){ // Изменение размера таблицы
+        debut = clock();
 
-            debut = clock();
+        res = reconstitueReseauHachage(cha, nbpts/4);
+        
+        fin = clock();
 
-            res = reconstitueReseauHachage(cha, n);// Восстановление сети из хэш-таблицы
-            
-            fin = clock();
+        t_h_quart = ((double) (fin - debut)) / CLOCKS_PER_SEC;
 
-            t_h += ((double) (fin - debut)) / CLOCKS_PER_SEC;
+        libererReseau(res);
+        
 
-            libererReseau(res);// Освобождение памяти
+        double t_h_moitie = 0; //taille nbpts/2
 
-        }
+        debut = clock();
 
-        t_h /= 15; // Расчет среднего
+        res = reconstitueReseauHachage(cha, nbpts/2);
+        
+        fin = clock();
 
-        libererChaine(cha);// Освобождение памяти цепей
+        t_h_moitie = ((double) (fin - debut)) / CLOCKS_PER_SEC;
 
-        FILE *res = fopen("comp.txt","a"); // Запись результатов в файл comp.txt
+        libererReseau(res);
 
-        fprintf(res, "%d %f %f %f\n", nbch,t_ch, t_h, t_ar);// Запись результатов
+
+        double t_h = 0; //taille nbpts
+
+        debut = clock();
+
+        res = reconstitueReseauHachage(cha, nbpts);
+        
+        fin = clock();
+
+        t_h = ((double) (fin - debut)) / CLOCKS_PER_SEC;
+
+        libererReseau(res);
+
+
+        double t_h_double = 0; //taille nbpts*2
+
+        debut = clock();
+
+        res = reconstitueReseauHachage(cha, nbpts*2);
+        
+        fin = clock();
+
+        t_h_double = ((double) (fin - debut)) / CLOCKS_PER_SEC;
+
+        libererReseau(res);
+
+
+        double t_h_4 = 0; //taille nbpts*4
+
+        debut = clock();
+
+        res = reconstitueReseauHachage(cha, nbpts*4);
+        
+        fin = clock();
+
+        t_h_4 = ((double) (fin - debut)) / CLOCKS_PER_SEC;
+
+        libererReseau(res);
+        
+        
+        libererChaine(cha);
+
+        FILE *res = fopen("comp.txt","a"); //stocker les resultats dans comp.txt
+
+        fprintf(res, "%d %f %f %f %f %f %f %f\n", nbch, t_ch, t_ar, t_h_quart, t_h_moitie, t_h, t_h_double, t_h_4);
 
         fclose(res);
 
